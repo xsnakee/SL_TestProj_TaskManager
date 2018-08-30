@@ -18,12 +18,7 @@
         private void ShowList()
         {
         }
-
-        private Task_t SearchTask(uint ID)
-        {
-            return new Task_t("Test content");
-        }
-
+        
         private void PrintMenu() { }
         private void KeyEventHandler() { }
         public void Show() { }
