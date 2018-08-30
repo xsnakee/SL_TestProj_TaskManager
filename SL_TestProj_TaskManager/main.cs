@@ -6,7 +6,7 @@ namespace SL_TestProj_TaskManager
     public static class main
     {
         public static void Main()
-        {
+        { 
             Console.WriteLine("INIT");
             Console.ReadKey();
             return;
