@@ -1,0 +1,7 @@
+.vs/
+*.pbd
+*.exe
+*.exe.*
+*.csproj.*
+*.pdb
+*.cache
