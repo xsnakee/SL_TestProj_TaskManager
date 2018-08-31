@@ -8,6 +8,8 @@ namespace SL_TestProj_TaskManager
         //FIELDS
         TaskList_t taskList;
         const ushort RecOnScreenAmount = 10;
+        int currentRec;
+
         string[] menu = {
             "1-Add",
             "2-Del",
@@ -22,10 +24,12 @@ namespace SL_TestProj_TaskManager
         public UserInterface_t()
         {
             taskList = new TaskList_t();
+            currentRec = 0;
         }
 
         public UserInterface_t(TaskList_t _taskList) {
             taskList = _taskList;
+            currentRec = 0;
         }
 
         private bool AddTask() {
@@ -59,8 +63,16 @@ namespace SL_TestProj_TaskManager
             return false;
 
         }
-        private void ShowList()
+        private void ShowList(ref int currentRec)
         {
+            int counter;
+            int charAmountOnDisplay = 15;
+            for (counter = 0; (counter < taskList.Length && counter <= RecOnScreenAmount); ++counter)
+            {
+                int index = currentRec + counter;
+                Task_t tempTask = taskList[index];
+                Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}",tempTask.Id + tempTask.Content.Substring(0, charAmountOnDisplay) + tempTask.Complete);
+            }
         }
         
         private void PrintMenu() {
@@ -106,12 +118,18 @@ namespace SL_TestProj_TaskManager
                     }
                 case ConsoleKey.DownArrow:
                     {
-
+                        if (valInRange(currentRec, 0, (taskList.Length - RecOnScreenAmount)))
+                        {
+                            currentRec += RecOnScreenAmount;
+                        }
                         break;
                     }
                 case ConsoleKey.UpArrow:
                     {
-
+                        if (valInRange(currentRec, RecOnScreenAmount, (taskList.Length - 1)))
+                        {
+                            currentRec -= RecOnScreenAmount;
+                        }
                         break;
                     }
                 case ConsoleKey.D0:
@@ -120,6 +138,16 @@ namespace SL_TestProj_TaskManager
                         break;
                     }
             }
+        }
+        private bool valInRange(int v, int minI, int maxI)
+        {
+            if (minI < maxI)
+            {
+                int temp = maxI;
+                maxI = minI;
+                minI = temp;
+            }
+            return (v >= minI && v <= maxI) ? true : false;
         }
 
         private bool IsValidContent(string content) {
@@ -146,7 +174,7 @@ namespace SL_TestProj_TaskManager
             ConsoleKeyInfo key;
             do
             {
-                ShowList();
+                ShowList(ref currentRec);
                 PrintMenu();
                 key = Console.ReadKey();
                 KeyEventHandler(key);
