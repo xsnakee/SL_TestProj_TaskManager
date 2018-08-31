@@ -5,12 +5,20 @@ namespace SL_TestProj_TaskManager
     public class TaskList_t
     {
         //PROP
-        List<Task_t> TaskList;
+        private List<Task_t> TaskList;
+        public int Length { get; private set; }
+        public Task_t this[int index]{
+            get
+            {
+                return TaskList[index];
+            }
+            private set { }
+        }
         //METH
         public TaskList_t() {
             TaskList = new List<Task_t>();
+            Length = 0;
         }
-
         public Task_t GetTask(uint ID)
         {
             return SearchTask(ID);
@@ -19,6 +27,7 @@ namespace SL_TestProj_TaskManager
         public void AddTask(string Content)
         {
             TaskList.Add(new Task_t(Content));
+            ++Length;
         }
 
         public bool EditTask(uint ID, string NewContent)
@@ -38,6 +47,7 @@ namespace SL_TestProj_TaskManager
             if (tempTask != null)
             {
                 TaskList.Remove(tempTask);
+                --Length;
                 return true;
             }
             return false;
