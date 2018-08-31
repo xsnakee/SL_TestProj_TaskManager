@@ -21,5 +21,10 @@
         {
             return Complete = (Complete) ? false : true;
         }
+
+        public void ChangeContent(string NewContent)
+        {
+            Content = NewContent;
+        }
     }
 }
