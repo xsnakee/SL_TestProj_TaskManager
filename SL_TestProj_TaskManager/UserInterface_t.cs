@@ -46,19 +46,26 @@ namespace SL_TestProj_TaskManager
         private bool DeleteTask()
         {
            uint ID = EnterId();
-            return taskList.DeleteTask(ID);
+
+            if (ID != 0)
+            {
+                return taskList.DeleteTask(ID);
+            }
+            return false;
             
         }
 
         private bool EditTask()
         {
             uint ID = EnterId();
-            Console.WriteLine("Current content: \n" + taskList.GetTask(ID).Content);
-            Console.Write("Enter new content:");
-            string content = Console.ReadLine();
-            if (IsValidContent(content))
+            if (ID != 0)
             {
-                return taskList.EditTask(ID,content);                
+                Console.Write("Enter new content:");
+                string content = Console.ReadLine();
+                if (IsValidContent(content))
+                {
+                    return taskList.EditTask(ID, content);
+                }
             }
             return false;
 
@@ -67,11 +74,19 @@ namespace SL_TestProj_TaskManager
         {
             int counter;
             int charAmountOnDisplay = 15;
+
+            if (taskList.Length == 0)
+            {
+                Console.WriteLine("List is empty");
+                return;
+            }
+
             for (counter = 0; (counter < taskList.Length && counter <= RecOnScreenAmount); ++counter)
             {
                 int index = currentRec + counter;
                 Task_t tempTask = taskList[index];
-                Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}",tempTask.Id + tempTask.Content.Substring(0, charAmountOnDisplay) + tempTask.Complete);
+                int strLength = (tempTask.Content.Length < charAmountOnDisplay) ? tempTask.Content.Length : charAmountOnDisplay;
+                Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}", tempTask.Id, tempTask.Content.Substring(0, strLength), tempTask.Complete);
             }
         }
         
@@ -81,6 +96,7 @@ namespace SL_TestProj_TaskManager
                 Console.Write(str + " | ");
             }
 
+            Console.WriteLine();
             Console.WriteLine();
         }
 
@@ -174,9 +190,10 @@ namespace SL_TestProj_TaskManager
             ConsoleKeyInfo key;
             do
             {
+                Console.Clear();
                 ShowList(ref currentRec);
                 PrintMenu();
-                key = Console.ReadKey();
+                key = Console.ReadKey(true);
                 KeyEventHandler(key);
             }
             while (key.KeyChar != '0');
