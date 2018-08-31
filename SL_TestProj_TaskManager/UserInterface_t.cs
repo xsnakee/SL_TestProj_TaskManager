@@ -70,9 +70,9 @@ namespace SL_TestProj_TaskManager
             return false;
 
         }
-        private void ShowList(ref int currentRec)
+        private void ShowList()
         {
-            int counter;
+            int counter = 0;
             int charAmountOnDisplay = 15;
 
             if (taskList.Length == 0)
@@ -81,9 +81,9 @@ namespace SL_TestProj_TaskManager
                 return;
             }
 
-            for (counter = 0; (counter < taskList.Length && counter <= RecOnScreenAmount); ++counter)
+            int index = currentRec + counter;
+            for (counter = 0 ; ((counter + currentRec) < taskList.Length && counter < RecOnScreenAmount); ++counter, index = currentRec + counter)
             {
-                int index = currentRec + counter;
                 Task_t tempTask = taskList[index];
                 int strLength = (tempTask.Content.Length < charAmountOnDisplay) ? tempTask.Content.Length : charAmountOnDisplay;
                 Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}", tempTask.Id, tempTask.Content.Substring(0, strLength), tempTask.Complete);
@@ -134,7 +134,7 @@ namespace SL_TestProj_TaskManager
                     }
                 case ConsoleKey.DownArrow:
                     {
-                        if (valInRange(currentRec, 0, (taskList.Length - RecOnScreenAmount)))
+                        if (currentRec < (taskList.Length - RecOnScreenAmount))
                         {
                             currentRec += RecOnScreenAmount;
                         }
@@ -142,7 +142,7 @@ namespace SL_TestProj_TaskManager
                     }
                 case ConsoleKey.UpArrow:
                     {
-                        if (valInRange(currentRec, RecOnScreenAmount, (taskList.Length - 1)))
+                        if (currentRec >= RecOnScreenAmount)
                         {
                             currentRec -= RecOnScreenAmount;
                         }
@@ -191,7 +191,7 @@ namespace SL_TestProj_TaskManager
             do
             {
                 Console.Clear();
-                ShowList(ref currentRec);
+                ShowList();
                 PrintMenu();
                 key = Console.ReadKey(true);
                 KeyEventHandler(key);
