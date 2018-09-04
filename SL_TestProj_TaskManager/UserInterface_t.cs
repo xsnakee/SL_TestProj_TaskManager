@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace SL_TestProj_TaskManager
 {
@@ -73,48 +72,21 @@ namespace SL_TestProj_TaskManager
         }
         private void ShowList()
         {
-            int counter = 0;
             int charAmountOnDisplay = 15;
 
             if (taskList.Length == 0)
             {
                 Console.WriteLine("List is empty");
-                // return;
+                return;
             }
 
+            int counter = 0;
             int index = currentRec + counter;
             for (counter = 0 ; ((counter + currentRec) < taskList.Length && counter < RecOnScreenAmount); ++counter, index = currentRec + counter)
             {
                 Task_t tempTask = taskList[index];
                 int strLength = (tempTask.Content.Length < charAmountOnDisplay) ? tempTask.Content.Length : charAmountOnDisplay;
                 Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}", tempTask.Id, tempTask.Content.Substring(0, strLength), tempTask.Complete);
-            }
-            Task_t[] taskLists = {
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-                new Task_t("w1e12"),
-
-            };
-
-            taskLists[0].ToggleStatus();
-            taskLists[3].ToggleStatus();
-            taskLists[5].ToggleStatus();
-            taskLists[2].ToggleStatus();
-
-            var taskt = from task in taskLists
-                        orderby task.Complete descending, task.Id descending
-                        select task;
-
-            foreach(var i in taskt)
-            {
-                int strLength = (i.Content.Length < charAmountOnDisplay) ? i.Content.Length : charAmountOnDisplay;
-                Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}", i.Id, i.Content.Substring(0, strLength), i.Complete);
             }
         }
 
