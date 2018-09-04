@@ -15,6 +15,8 @@ namespace SL_TestProj_TaskManager
             "2-Del",
             "3-Edit",
             "4-ToggleComplete",
+            "5-LoadFromFile",
+            "6-SaveToFile",
             "DOWN-Scroll d",
             "UP-Scroll u",
             "0-Exit"
@@ -32,12 +34,36 @@ namespace SL_TestProj_TaskManager
             currentRec = 0;
         }
 
+        private bool SaveToFile()
+        {
+            Console.Write("Enter file name:");
+            string FileName = Console.ReadLine();
+            FileSaver_t file = new FileSaver_t(FileName);
+            if (file.Save(ref taskList)) { 
+                return true;
+            }
+            return false;
+        }
+
+        private bool LoadFromFile()
+        {
+            Console.Write("Enter file name:");
+            string FileName = Console.ReadLine();
+            FileLoader_t file = new FileLoader_t(FileName);
+            if (file.Load(ref taskList))
+            {
+                return true;
+            }
+            return false;
+        }
+
         private bool AddTask() {
             Console.Write("Enter task content:");
             string content = Console.ReadLine();
             if (IsValidContent(content))
             {
-                taskList.AddTask(content);
+                Task_t newTask = new Task_t(content);
+                taskList.AddTask(newTask);
                 return true;
             }
             return false;
@@ -126,10 +152,27 @@ namespace SL_TestProj_TaskManager
                     }
                 case ConsoleKey.D5:
                     {//LOAD
+                        if (LoadFromFile())
+                        {
+                            Console.WriteLine("Successful");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Aborted");
+                        }
+                        Console.ReadKey(false);
                         break;
                     }
                 case ConsoleKey.D6:
                     {//SAVE
+                        if (SaveToFile())
+                        {
+                            Console.WriteLine("Successful");
+                        } else
+                        {
+                            Console.WriteLine("Aborted");
+                        }
+                        Console.ReadKey(false);
                         break;
                     }
                 case ConsoleKey.DownArrow:

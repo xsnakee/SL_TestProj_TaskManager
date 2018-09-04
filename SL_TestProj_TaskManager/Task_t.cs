@@ -14,7 +14,14 @@
         public Task_t(string content)
         {
             Content = content;
-            Id = ++Counter;
+            Id = ++Counter;//use in NEW lists
+        }
+
+        public Task_t(uint id, string content)
+        {
+            Content = content;
+            Id = id;
+            ++Counter;
         }
 
         public bool ToggleStatus()

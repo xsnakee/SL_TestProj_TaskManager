@@ -24,9 +24,10 @@ namespace SL_TestProj_TaskManager
             return SearchTask(ID);
         }
 
-        public void AddTask(string Content)
+        public void AddTask(Task_t newTask)
         {
-            TaskList.Add(new Task_t(Content));
+            IdentifyId(newTask);
+            TaskList.Add(newTask);
             ++Length;
         }
 
@@ -73,6 +74,15 @@ namespace SL_TestProj_TaskManager
                 }
             }
             return null;
+        }
+
+        private uint IdentifyId(Task_t task)
+        {
+            if (TaskList.Count != 0)
+            {
+                task.Id = TaskList[TaskList.Count - 1].Id + 1;
+            }
+            return task.Id;
         }
 
         public IReadOnlyList<Task_t> GetReadOnlyList()
