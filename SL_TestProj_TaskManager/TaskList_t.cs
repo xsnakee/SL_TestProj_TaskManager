@@ -74,5 +74,10 @@ namespace SL_TestProj_TaskManager
             }
             return null;
         }
+
+        public IReadOnlyList<Task_t> GetReadOnlyList()
+        {
+            return TaskList.AsReadOnly();
+        }
     }
 }
