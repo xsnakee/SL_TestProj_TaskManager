@@ -36,7 +36,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileLoader_t.cs" />
+    <Compile Include="FileSaver_t.cs" />
     <Compile Include="main.cs" />
+    <Compile Include="Save_load_I.cs" />
     <Compile Include="TaskList_t.cs" />
     <Compile Include="Task_t.cs" />
     <Compile Include="UserInterface_t.cs" />
