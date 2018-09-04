@@ -5,7 +5,7 @@ namespace SL_TestProj_TaskManager
     public class TaskList_t
     {
         //PROP
-        private List<Task_t> TaskList;
+        private List<Task_t> TaskList { get; set; }
         public int Length { get; private set; }
         public Task_t this[int index]{
             get

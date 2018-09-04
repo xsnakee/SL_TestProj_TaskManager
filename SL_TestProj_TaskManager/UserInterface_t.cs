@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace SL_TestProj_TaskManager
-{   
+{
 
     public class UserInterface_t
     {
@@ -46,14 +46,14 @@ namespace SL_TestProj_TaskManager
 
         private bool DeleteTask()
         {
-           uint ID = EnterId();
+            uint ID = EnterId();
 
             if (ID != 0)
             {
                 return taskList.DeleteTask(ID);
             }
             return false;
-            
+
         }
 
         private bool EditTask()
@@ -79,7 +79,7 @@ namespace SL_TestProj_TaskManager
             if (taskList.Length == 0)
             {
                 Console.WriteLine("List is empty");
-              // return;
+                // return;
             }
 
             int index = currentRec + counter;
@@ -117,7 +117,7 @@ namespace SL_TestProj_TaskManager
                 Console.WriteLine("{0, 3} | {1, 20}... | {2, 7}", i.Id, i.Content.Substring(0, strLength), i.Complete);
             }
         }
-        
+
         private void PrintMenu() {
             Console.WriteLine();
             foreach (string str in menu) {
@@ -128,7 +128,7 @@ namespace SL_TestProj_TaskManager
             Console.WriteLine();
         }
 
-        private void KeyEventHandler(ConsoleKeyInfo pressKey) { 
+        private void KeyEventHandler(ConsoleKeyInfo pressKey) {
             switch (pressKey.Key)
             {
                 case ConsoleKey.D1:
